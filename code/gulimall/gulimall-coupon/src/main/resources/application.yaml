@@ -1,8 +1,8 @@
 spring:
   datasource:
     username: root
-    password: 12345li
-    url: jdbc:mysql://192.168.1.102:3306/gulimall_sms?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+    password: '@@fes945'
+    url: jdbc:mysql://rm-uf6k0nk5e20512u3cjo.mysql.rds.aliyuncs.com:3306/gulimall_sms?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
     driver-class-name: com.mysql.cj.jdbc.Driver
   cloud:
     nacos:
