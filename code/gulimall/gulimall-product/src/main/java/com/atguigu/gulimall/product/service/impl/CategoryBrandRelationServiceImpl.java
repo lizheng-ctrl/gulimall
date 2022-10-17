@@ -26,4 +26,9 @@ public class CategoryBrandRelationServiceImpl extends ServiceImpl<CategoryBrandR
         return new PageUtils(page);
     }
 
+    @Override
+    public void updateBrand(Long brandId, String name) {
+
+    }
+
 }

@@ -24,7 +24,7 @@ class GulimallThirdPartyApplicationTests {
     @Test
 	public void testUpload() throws FileNotFoundException {
 		FileInputStream fileInputStream = new FileInputStream("C:\\Users\\lizheng\\Desktop\\1ad5ad6eddc451da566bf5d5c7e79661d0163215.jpeg");
-		ossClient.putObject("lizheng-gulimall","guimei.jpg", fileInputStream);
+		ossClient.putObject("lizheng-gulimall","guimeizhiren.jpg", fileInputStream);
 		ossClient.shutdown();
 		System.out.println("上传成功");
 	}
