@@ -18,5 +18,9 @@ public interface CategoryBrandRelationService extends IService<CategoryBrandRela
     PageUtils queryPage(Map<String, Object> params);
 
     void updateBrand(Long brandId, String name);
+
+    void saveDetail(CategoryBrandRelationEntity categoryBrandRelation);
+
+    void updateCategory(Long catId, String name);
 }
 
