@@ -2,7 +2,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 127.0.0.1:8848
+        server-addr: 47.100.57.248:8848
     alicloud:
       access-key: LTAI5tBbgmECFxm6LsggRgCa
       secret-key: gFFTpcZgGWUF75yLEoXRjYBGXbCc8w
