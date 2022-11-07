@@ -9,7 +9,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 127.0.0.1:8848
+        server-addr: 47.100.57.248:8848
 #配置sql 映射文件位置 sql映射文件作用是 自定义复杂sql 业务
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*.xml

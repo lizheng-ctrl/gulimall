@@ -673,6 +673,7 @@ export default {
           method: "get",
           params: this.$http.adornParams({})
         }).then(({ data }) => {
+          console.log(data.data);
           //先对表单的baseAttrs进行初始化
           data.data.forEach(item => {
             let attrArray = [];
