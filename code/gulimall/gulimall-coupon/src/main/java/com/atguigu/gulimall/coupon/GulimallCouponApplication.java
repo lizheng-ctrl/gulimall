@@ -2,6 +2,8 @@ package com.atguigu.gulimall.coupon;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
+
 /**
  *  命名空间: 配置隔离
  *  1）默认 public (保留空间)；默认新增的所有配置都在public空间
@@ -15,7 +17,6 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  *
  *
  */
-
 @EnableDiscoveryClient
 @SpringBootApplication
 public class GulimallCouponApplication {
