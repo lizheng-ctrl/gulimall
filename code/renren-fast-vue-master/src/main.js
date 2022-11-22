@@ -13,6 +13,7 @@ import cloneDeep from 'lodash/cloneDeep'
 import PubSub from 'pubsub-js'
 
 Vue.use(VueCookie)
+// Vue.use(PubSub)
 Vue.config.productionTip = false
 
 // 非生产环境, 适配mockjs模拟数据                 // api: https://github.com/nuysoft/Mock

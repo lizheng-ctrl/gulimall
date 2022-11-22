@@ -13,7 +13,6 @@ import com.atguigu.common.utils.PageUtils;
 import com.atguigu.common.utils.R;
 
 
-
 /**
  * 商品满减信息
  *
@@ -31,18 +30,17 @@ public class SkuFullReductionController {
      * 列表
      */
     @PostMapping("/saveInfo")
-    public R saveInfo(@RequestBody SkuReductionTo skuReductionTo){
+    public R saveInfo(@RequestBody SkuReductionTo skuReductionTo) {
         skuFullReductionService.saveSkuReduction(skuReductionTo);
         return R.ok();
     }
-
 
 
     /**
      * 列表
      */
     @RequestMapping("/list")
-    public R list(@RequestParam Map<String, Object> params){
+    public R list(@RequestParam Map<String, Object> params) {
         PageUtils page = skuFullReductionService.queryPage(params);
 
         return R.ok().put("page", page);
@@ -53,8 +51,8 @@ public class SkuFullReductionController {
      * 信息
      */
     @RequestMapping("/info/{id}")
-    public R info(@PathVariable("id") Long id){
-		SkuFullReductionEntity skuFullReduction = skuFullReductionService.getById(id);
+    public R info(@PathVariable("id") Long id) {
+        SkuFullReductionEntity skuFullReduction = skuFullReductionService.getById(id);
 
         return R.ok().put("skuFullReduction", skuFullReduction);
     }
@@ -63,8 +61,8 @@ public class SkuFullReductionController {
      * 保存
      */
     @RequestMapping("/save")
-    public R save(@RequestBody SkuFullReductionEntity skuFullReduction){
-		skuFullReductionService.save(skuFullReduction);
+    public R save(@RequestBody SkuFullReductionEntity skuFullReduction) {
+        skuFullReductionService.save(skuFullReduction);
 
         return R.ok();
     }
@@ -73,8 +71,8 @@ public class SkuFullReductionController {
      * 修改
      */
     @RequestMapping("/update")
-    public R update(@RequestBody SkuFullReductionEntity skuFullReduction){
-		skuFullReductionService.updateById(skuFullReduction);
+    public R update(@RequestBody SkuFullReductionEntity skuFullReduction) {
+        skuFullReductionService.updateById(skuFullReduction);
 
         return R.ok();
     }
@@ -83,8 +81,8 @@ public class SkuFullReductionController {
      * 删除
      */
     @RequestMapping("/delete")
-    public R delete(@RequestBody Long[] ids){
-		skuFullReductionService.removeByIds(Arrays.asList(ids));
+    public R delete(@RequestBody Long[] ids) {
+        skuFullReductionService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

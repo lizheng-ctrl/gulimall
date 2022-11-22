@@ -31,10 +31,11 @@ public interface AttrService extends IService<AttrEntity> {
 
     /**
      * 根据分组id查找关联的所有属性
-     * @author lizheng
-     * @date 2022/10/23 10:17
+     *
      * @param attrgroupId
      * @return java.util.List<com.atguigu.gulimall.product.entity.AttrEntity>
+     * @author lizheng
+     * @date 2022/10/23 10:17
      */
     List<AttrEntity> getRelationAttr(Long attrgroupId);
 

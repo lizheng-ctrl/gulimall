@@ -6,12 +6,12 @@ import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 退货原因
- * 
+ *
  * @author LZ
  * @email sunlightcs@gmail.com
  * @date 2022-07-14 22:32:10
  */
 @Mapper
 public interface OrderReturnReasonDao extends BaseMapper<OrderReturnReasonEntity> {
-	
+
 }

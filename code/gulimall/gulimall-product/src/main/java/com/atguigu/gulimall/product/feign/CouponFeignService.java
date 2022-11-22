@@ -15,13 +15,13 @@ public interface CouponFeignService {
 
 
     /**
-     *1、CouPonFeignService.saveSpuBounds(spuBoundTo)
-     *  1) @RequestBody 将这个对象转成json
-     *  2) 找到gulimall-coupon服务,给/coupon/spubounds/save 发送请求
-     *  3）、对方服务收到请求、请求体里有json 数据
-     * @RequestBody SpuBoundsEntity spuBounds 将请求体的json 转为SpuBoundEntity
-     *  只要json 数据模型是兼容的 。双方服务无需使用同一个to
+     * 1、CouPonFeignService.saveSpuBounds(spuBoundTo)
+     * 1) @RequestBody 将这个对象转成json
+     * 2) 找到gulimall-coupon服务,给/coupon/spubounds/save 发送请求
+     * 3）、对方服务收到请求、请求体里有json 数据
      *
+     * @RequestBody SpuBoundsEntity spuBounds 将请求体的json 转为SpuBoundEntity
+     * 只要json 数据模型是兼容的 。双方服务无需使用同一个to
      */
     @PostMapping("/coupon/spubounds/save")
     R saveSpuBounds(@RequestBody SpuBoundTo spuBoundTo);

@@ -16,7 +16,6 @@ import com.atguigu.common.utils.PageUtils;
 import com.atguigu.common.utils.R;
 
 
-
 /**
  * 会员收藏的专题活动
  *
@@ -34,7 +33,7 @@ public class MemberCollectSubjectController {
      * 列表
      */
     @RequestMapping("/list")
-    public R list(@RequestParam Map<String, Object> params){
+    public R list(@RequestParam Map<String, Object> params) {
         PageUtils page = memberCollectSubjectService.queryPage(params);
 
         return R.ok().put("page", page);
@@ -45,8 +44,8 @@ public class MemberCollectSubjectController {
      * 信息
      */
     @RequestMapping("/info/{id}")
-    public R info(@PathVariable("id") Long id){
-		MemberCollectSubjectEntity memberCollectSubject = memberCollectSubjectService.getById(id);
+    public R info(@PathVariable("id") Long id) {
+        MemberCollectSubjectEntity memberCollectSubject = memberCollectSubjectService.getById(id);
 
         return R.ok().put("memberCollectSubject", memberCollectSubject);
     }
@@ -55,8 +54,8 @@ public class MemberCollectSubjectController {
      * 保存
      */
     @RequestMapping("/save")
-    public R save(@RequestBody MemberCollectSubjectEntity memberCollectSubject){
-		memberCollectSubjectService.save(memberCollectSubject);
+    public R save(@RequestBody MemberCollectSubjectEntity memberCollectSubject) {
+        memberCollectSubjectService.save(memberCollectSubject);
 
         return R.ok();
     }
@@ -65,8 +64,8 @@ public class MemberCollectSubjectController {
      * 修改
      */
     @RequestMapping("/update")
-    public R update(@RequestBody MemberCollectSubjectEntity memberCollectSubject){
-		memberCollectSubjectService.updateById(memberCollectSubject);
+    public R update(@RequestBody MemberCollectSubjectEntity memberCollectSubject) {
+        memberCollectSubjectService.updateById(memberCollectSubject);
 
         return R.ok();
     }
@@ -75,8 +74,8 @@ public class MemberCollectSubjectController {
      * 删除
      */
     @RequestMapping("/delete")
-    public R delete(@RequestBody Long[] ids){
-		memberCollectSubjectService.removeByIds(Arrays.asList(ids));
+    public R delete(@RequestBody Long[] ids) {
+        memberCollectSubjectService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

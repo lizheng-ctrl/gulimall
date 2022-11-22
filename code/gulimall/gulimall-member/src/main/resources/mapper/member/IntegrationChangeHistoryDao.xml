@@ -3,8 +3,9 @@
 
 <mapper namespace="com.atguigu.gulimall.member.dao.IntegrationChangeHistoryDao">
 
-	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.atguigu.gulimall.member.entity.IntegrationChangeHistoryEntity" id="integrationChangeHistoryMap">
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.atguigu.gulimall.member.entity.IntegrationChangeHistoryEntity"
+               id="integrationChangeHistoryMap">
         <result property="id" column="id"/>
         <result property="memberId" column="member_id"/>
         <result property="createTime" column="create_time"/>

@@ -1,8 +1,8 @@
 /**
  * Copyright (c) 2016-2019 人人开源 All rights reserved.
- *
+ * <p>
  * https://www.renren.io
- *
+ * <p>
  * 版权所有，侵权必究！
  */
 
@@ -36,6 +36,7 @@ public class Constant {
      *  升序
      */
     public static final String ASC = "asc";
+
     /**
      * 菜单类型
      *

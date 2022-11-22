@@ -9,7 +9,7 @@ import lombok.Data;
  * @create: 2022-10-22 19:04
  **/
 @Data
-public class AttrRespVo extends AttrVo{
+public class AttrRespVo extends AttrVo {
 
     private String catelogName;
 

@@ -10,6 +10,9 @@ spring:
         server-addr: 47.100.57.248:8848
   application:
     name: gulimall-product
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
 #配置sql 映射文件位置 sql映射文件作用是 自定义复杂sql 业务
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*.xml

@@ -6,11 +6,12 @@ import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
 import java.util.Date;
+
 import lombok.Data;
 
 /**
  * spu信息介绍
- * 
+ *
  * @author LZ
  * @email sunlightcs@gmail.com
  * @date 2022-07-13 21:14:28
@@ -18,16 +19,16 @@ import lombok.Data;
 @Data
 @TableName("pms_spu_info_desc")
 public class SpuInfoDescEntity implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * 商品id
-	 */
-	@TableId(type = IdType.INPUT)
-	private Long spuId;
-	/**
-	 * 商品介绍
-	 */
-	private String decript;
+    /**
+     * 商品id
+     */
+    @TableId(type = IdType.INPUT)
+    private Long spuId;
+    /**
+     * 商品介绍
+     */
+    private String decript;
 
 }

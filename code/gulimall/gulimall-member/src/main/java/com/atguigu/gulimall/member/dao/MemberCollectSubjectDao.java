@@ -6,12 +6,12 @@ import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 会员收藏的专题活动
- * 
+ *
  * @author LZ
  * @email sunlightcs@gmail.com
  * @date 2022-07-14 22:19:34
  */
 @Mapper
 public interface MemberCollectSubjectDao extends BaseMapper<MemberCollectSubjectEntity> {
-	
+
 }

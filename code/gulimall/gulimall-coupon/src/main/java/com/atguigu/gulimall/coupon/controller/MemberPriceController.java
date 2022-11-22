@@ -16,7 +16,6 @@ import com.atguigu.common.utils.PageUtils;
 import com.atguigu.common.utils.R;
 
 
-
 /**
  * 商品会员价格
  *
@@ -34,7 +33,7 @@ public class MemberPriceController {
      * 列表
      */
     @RequestMapping("/list")
-    public R list(@RequestParam Map<String, Object> params){
+    public R list(@RequestParam Map<String, Object> params) {
         PageUtils page = memberPriceService.queryPage(params);
 
         return R.ok().put("page", page);
@@ -45,8 +44,8 @@ public class MemberPriceController {
      * 信息
      */
     @RequestMapping("/info/{id}")
-    public R info(@PathVariable("id") Long id){
-		MemberPriceEntity memberPrice = memberPriceService.getById(id);
+    public R info(@PathVariable("id") Long id) {
+        MemberPriceEntity memberPrice = memberPriceService.getById(id);
 
         return R.ok().put("memberPrice", memberPrice);
     }
@@ -55,8 +54,8 @@ public class MemberPriceController {
      * 保存
      */
     @RequestMapping("/save")
-    public R save(@RequestBody MemberPriceEntity memberPrice){
-		memberPriceService.save(memberPrice);
+    public R save(@RequestBody MemberPriceEntity memberPrice) {
+        memberPriceService.save(memberPrice);
 
         return R.ok();
     }
@@ -65,8 +64,8 @@ public class MemberPriceController {
      * 修改
      */
     @RequestMapping("/update")
-    public R update(@RequestBody MemberPriceEntity memberPrice){
-		memberPriceService.updateById(memberPrice);
+    public R update(@RequestBody MemberPriceEntity memberPrice) {
+        memberPriceService.updateById(memberPrice);
 
         return R.ok();
     }
@@ -75,8 +74,8 @@ public class MemberPriceController {
      * 删除
      */
     @RequestMapping("/delete")
-    public R delete(@RequestBody Long[] ids){
-		memberPriceService.removeByIds(Arrays.asList(ids));
+    public R delete(@RequestBody Long[] ids) {
+        memberPriceService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }
