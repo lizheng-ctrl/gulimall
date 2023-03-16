@@ -1,6 +1,7 @@
 package com.atguigu.gulimall.product.service.impl;
 
 import com.alibaba.cloud.commons.lang.StringUtils;
+import com.alibaba.fastjson.TypeReference;
 import com.atguigu.common.to.SkuHasStockVo;
 import com.atguigu.common.to.SkuReductionTo;
 import com.atguigu.common.to.SpuBoundTo;
@@ -249,13 +250,14 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         //TODO 1 发送远程调用,库存系统查询是否有库存
         Map<Long, Boolean> stockMap = null;
         try {
-            R<List<SkuHasStockVo>> skuHasStock = wareFeignService.getSkuHasStock(skuIdList);
-            skuHasStock.getData().stream().collect(Collectors.toMap(SkuHasStockVo::getSkuId, SkuHasStockVo::getHasStock));
+            R r = wareFeignService.getSkuHasStock(skuIdList);
+            TypeReference<List<SkuHasStockVo>> typeReference = new TypeReference<List<SkuHasStockVo>>(){};
+            stockMap = r.getData(typeReference).stream().collect(Collectors.toMap(SkuHasStockVo::getSkuId, SkuHasStockVo::getHasStock));
         }catch (Exception e){
             log.error("库存服务查询异常: 原因{}",e);
         }
 
-
+        final Map<Long,Boolean> finalStockMap = stockMap;
         List<SkuEsModel> uoProducts = skus.stream().map(sku ->{
             //组装需要的数据
             SkuEsModel esModel = new SkuEsModel();
@@ -263,10 +265,10 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
             esModel.setSkuPrice(sku.getPrice());
             esModel.setSkuImg(sku.getSkuDefaultImg());
             //设置库存信息
-            if(stockMap == null){
+            if(finalStockMap == null){
                 esModel.setHasStock(true);
             }else {
-                esModel.setHasStock(stockMap.get(sku.getSkuId()));
+                esModel.setHasStock(finalStockMap.get(sku.getSkuId()));
             }
             //TODO 2 热度评分。0
             esModel.setHotScore(0L);
@@ -280,6 +282,19 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
             esModel.setAttrs(attrsList);
             return esModel;
         }).collect(Collectors.toList());
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     }
 
