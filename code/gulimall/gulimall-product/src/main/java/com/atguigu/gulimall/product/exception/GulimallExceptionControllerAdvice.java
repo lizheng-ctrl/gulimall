@@ -33,14 +33,14 @@ public class GulimallExceptionControllerAdvice {
         bindingResult.getFieldErrors().forEach((fieldError) -> {
             errorMap.put(fieldError.getField(), fieldError.getDefaultMessage());
         });
-        return R.error(BizCodeEnume.VAILD_EXCEPTION.getCode(), BizCodeEnume.VAILD_EXCEPTION.getMsg()).put("data", errorMap);
+        return R.error(BizCodeEnume.VAILD_EXCEPTION.getCode(), BizCodeEnume.VAILD_EXCEPTION.getMessage()).put("data", errorMap);
     }
 
     @ExceptionHandler(value = Throwable.class)
     public R handleException(Throwable throwable) {
 
         log.error("错误：", throwable);
-        return R.error(BizCodeEnume.UNKNOW_EXCEPTION.getCode(), BizCodeEnume.UNKNOW_EXCEPTION.getMsg());
+        return R.error(BizCodeEnume.UNKNOW_EXCEPTION.getCode(), BizCodeEnume.UNKNOW_EXCEPTION.getMessage());
     }
 
 
