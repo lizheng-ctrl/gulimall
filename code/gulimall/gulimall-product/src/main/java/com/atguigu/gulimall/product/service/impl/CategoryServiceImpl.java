@@ -1,25 +1,24 @@
 package com.atguigu.gulimall.product.service.impl;
 
+import com.atguigu.common.utils.PageUtils;
+import com.atguigu.common.utils.Query;
+import com.atguigu.gulimall.product.dao.CategoryDao;
+import com.atguigu.gulimall.product.entity.CategoryEntity;
 import com.atguigu.gulimall.product.service.CategoryBrandRelationService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
+import com.atguigu.gulimall.product.service.CategoryService;
+import com.atguigu.gulimall.product.vo.Catelog2Vo;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.atguigu.common.utils.PageUtils;
-import com.atguigu.common.utils.Query;
-
-import com.atguigu.gulimall.product.dao.CategoryDao;
-import com.atguigu.gulimall.product.entity.CategoryEntity;
-import com.atguigu.gulimall.product.service.CategoryService;
+import org.aspectj.weaver.ast.Var;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 
 @Service("categoryService")
@@ -87,6 +86,60 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         categoryBrandRelationService.updateCategory(category.getCatId(), category.getName());
 
 
+    }
+
+    @Override
+    public List<CategoryEntity> getLevel1Categories() {
+        List<CategoryEntity> entities = this.baseMapper.selectList(new QueryWrapper<CategoryEntity>().eq("parent_cid", 0));
+        return entities;
+    }
+
+    @Override
+    public Map<String, List<Catelog2Vo>> getCatalogJson() {
+
+        List<CategoryEntity> entities = this.baseMapper.selectList(null);
+        Map<Integer, List<CategoryEntity>> categoryMap = entities.stream().collect(Collectors.groupingBy(CategoryEntity::getCatLevel));
+
+        //获取一级分类
+        List<CategoryEntity> category1 = categoryMap.get(1);
+        List<CategoryEntity> category2 = categoryMap.get(2);
+        List<CategoryEntity> category3 = categoryMap.get(3);
+
+
+        Map<Long, List<CategoryEntity>> categoryMap2 = category2.stream().collect(Collectors.groupingBy(CategoryEntity::getParentCid));
+        Map<Long, List<CategoryEntity>> categoryMap3 = category3.stream().collect(Collectors.groupingBy(CategoryEntity::getParentCid));
+
+        Map<String, List<Catelog2Vo>> map = new HashMap<>();
+        category1.forEach(categoryEntity -> {
+            Long catId = categoryEntity.getCatId();
+            List<CategoryEntity> entities1 = categoryMap2.get(catId);
+            List<Catelog2Vo> catelog2Vos = new ArrayList<>();
+            entities1.forEach(item->{
+                Catelog2Vo catelog2Vo = new Catelog2Vo();
+                catelog2Vo.setCatalog1Id(catId.toString());
+                catelog2Vo.setName(item.getName());
+                catelog2Vo.setId(item.getCatId().toString());
+
+                //组装三级分类
+                List<CategoryEntity> entities2 = categoryMap3.get(item.getCatId());
+                ArrayList<Catelog2Vo.Catelog3Vo> catelog3Vos = new ArrayList<>();
+                if(entities2!=null){
+                    entities2.forEach(item1->{
+                        Catelog2Vo.Catelog3Vo catelog3Vo = new Catelog2Vo.Catelog3Vo();
+                        catelog3Vo.setCatalog2Id(item.getCatId().toString());
+                        catelog3Vo.setId(item1.getCatId().toString());
+                        catelog3Vo.setName(item1.getName());
+                        catelog3Vos.add(catelog3Vo);
+                    });
+                    catelog2Vo.setCatalog3List(catelog3Vos);
+                }
+
+                catelog2Vos.add(catelog2Vo);
+                map.put(catId.toString(),catelog2Vos);
+            });
+        });
+
+        return map;
     }
 
     private List<Long> findParentPath(Long catelogId, List<Long> paths) {

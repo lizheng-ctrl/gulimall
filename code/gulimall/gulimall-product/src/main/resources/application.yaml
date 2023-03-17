@@ -13,6 +13,10 @@ spring:
 
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
+  thymeleaf:
+    cache: false
+
+
 #配置sql 映射文件位置 sql映射文件作用是 自定义复杂sql 业务
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*.xml
