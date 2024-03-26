@@ -12,7 +12,6 @@ spring:
         server-addr: 139.196.224.147:8848
         username: nacos
         password: nacos
-        namespace: 0f1e7652-5c86-47fb-9b5e-a09b0fae828a
 #配置sql 映射文件位置 sql映射文件作用是 自定义复杂sql 业务
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*.xml

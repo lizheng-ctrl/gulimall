@@ -10,7 +10,6 @@ spring:
         server-addr: 139.196.224.147:8848
         username: nacos
         password: nacos
-        namespace: a1bb3cc7-f2b4-4c72-8385-6ff83349c6e7
   application:
     name: gulimall-coupon
 mybatis-plus:
