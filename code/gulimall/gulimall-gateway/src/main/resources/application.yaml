@@ -2,7 +2,10 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 47.100.57.248:8848
+        server-addr: 139.196.224.147:8848
+        username: nacos
+        password: nacos
+        namespace: e7934ca5-95ab-4b7d-bcd3-d400c3bc70bd
     gateway:
       routes:
         - id: test_route

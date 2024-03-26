@@ -2,14 +2,17 @@ spring:
   datasource:
     username: root
     password: '@@fes945'
-    url: jdbc:mysql://47.100.57.248:3306/gulimall_ums?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://139.196.224.147:3306/gulimall_ums?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
     driver-class-name: com.mysql.cj.jdbc.Driver
   application:
     name: gulimall-member
   cloud:
     nacos:
       discovery:
-        server-addr: 47.100.57.248:8848
+        server-addr: 139.196.224.147:8848
+        username: nacos
+        password: nacos
+        namespace: 0f1e7652-5c86-47fb-9b5e-a09b0fae828a
 #配置sql 映射文件位置 sql映射文件作用是 自定义复杂sql 业务
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*.xml

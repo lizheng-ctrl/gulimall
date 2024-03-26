@@ -49,9 +49,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         }).map((menu) -> {
             menu.setChildren(getChildrenMenus(menu, entities));
             return menu;
-        }).sorted((menu1, menu2) -> {
-            return (menu1.getSort() == null ? 0 : menu1.getSort()) - (menu2.getSort() == null ? 0 : menu2.getSort());
-        }).collect(Collectors.toList());
+        }).sorted(Comparator.comparingInt(menu -> (menu.getSort() == null ? 0 : menu.getSort()))).collect(Collectors.toList());
 
         return levelMenus;
     }
@@ -154,14 +152,10 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
 
     //递归查找所有菜单的子菜单
     private List<CategoryEntity> getChildrenMenus(CategoryEntity root, List<CategoryEntity> all) {
-        List<CategoryEntity> childrenMenus = all.stream().filter(categoryEntity -> {
-            return categoryEntity.getParentCid().equals(root.getCatId());
-        }).map(categoryEntity -> {
+        List<CategoryEntity> childrenMenus = all.stream().filter(categoryEntity -> categoryEntity.getParentCid().equals(root.getCatId())).map(categoryEntity -> {
             categoryEntity.setChildren(getChildrenMenus(categoryEntity, all));
             return categoryEntity;
-        }).sorted((menu1, menu2) -> {
-            return (menu1.getSort() == null ? 0 : menu1.getSort()) - (menu2.getSort() == null ? 0 : menu2.getSort());
-        }).collect(Collectors.toList());
+        }).sorted(Comparator.comparingInt(menu -> (menu.getSort() == null ? 0 : menu.getSort()))).collect(Collectors.toList());
         return childrenMenus;
     }
 
