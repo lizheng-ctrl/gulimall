@@ -18,6 +18,14 @@ spring:
   thymeleaf:
     cache: false
 
+  redis:
+    host: 139.196.224.147
+    port: 6379
+    password: fes945@lizheng
+
+
+
+
 
 #配置sql 映射文件位置 sql映射文件作用是 自定义复杂sql 业务
 mybatis-plus:

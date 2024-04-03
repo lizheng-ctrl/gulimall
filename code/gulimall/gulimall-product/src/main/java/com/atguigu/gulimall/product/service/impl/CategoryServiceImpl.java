@@ -1,7 +1,11 @@
 package com.atguigu.gulimall.product.service.impl;
 
+
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.TypeReference;
 import com.atguigu.common.utils.PageUtils;
 import com.atguigu.common.utils.Query;
+import com.atguigu.gulimall.product.config.RedisCache;
 import com.atguigu.gulimall.product.dao.CategoryDao;
 import com.atguigu.gulimall.product.entity.CategoryEntity;
 import com.atguigu.gulimall.product.service.CategoryBrandRelationService;
@@ -10,14 +14,15 @@ import com.atguigu.gulimall.product.vo.Catelog2Vo;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.aspectj.weaver.ast.Var;
-import org.springframework.beans.BeanUtils;
+import org.apache.commons.lang.StringUtils;
+import org.redisson.Redisson;
+import org.redisson.api.RLock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.*;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 
@@ -27,6 +32,14 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
 
     @Autowired
     private CategoryBrandRelationService categoryBrandRelationService;
+
+
+    @Resource
+    private RedisCache redisCache;
+
+
+    @Resource
+    private Redisson redisson;
 
 
     @Override
@@ -82,8 +95,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     public void updateCascade(CategoryEntity category) {
         this.updateById(category);
         categoryBrandRelationService.updateCategory(category.getCatId(), category.getName());
-
-
+        redisCache.deleteObject("catalogJsonData");
     }
 
     @Override
@@ -94,6 +106,33 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
 
     @Override
     public Map<String, List<Catelog2Vo>> getCatalogJson() {
+        String catalogJsonData = redisCache.getCacheObject("catalogJsonData");
+        if (StringUtils.isEmpty(catalogJsonData)) {
+            RLock lock = redisson.getLock("catelogjson-lock");
+            lock.lock();
+            try {
+                catalogJsonData = redisCache.getCacheObject("catalogJsonData");
+                if (StringUtils.isEmpty(catalogJsonData)) {
+                    Map<String, List<Catelog2Vo>> catalogJsonFromDb = getCatalogJsonFromDb();
+                    catalogJsonData = JSON.toJSONString(catalogJsonFromDb);
+                    redisCache.setCacheObject("catalogJsonData", catalogJsonData);
+                    return catalogJsonFromDb;
+                }
+                Map<String, List<Catelog2Vo>> data = JSON.parseObject(catalogJsonData, new TypeReference<Map<String, List<Catelog2Vo>>>() {
+                });
+                return data;
+            } catch (Exception e) {
+
+            } finally {
+                lock.unlock();
+            }
+        }
+        Map<String, List<Catelog2Vo>> data = JSON.parseObject(catalogJsonData, new TypeReference<Map<String, List<Catelog2Vo>>>() {
+        });
+        return data;
+    }
+
+    public Map<String, List<Catelog2Vo>> getCatalogJsonFromDb() {
 
         List<CategoryEntity> entities = this.baseMapper.selectList(null);
         Map<Integer, List<CategoryEntity>> categoryMap = entities.stream().collect(Collectors.groupingBy(CategoryEntity::getCatLevel));
@@ -136,7 +175,6 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
                 map.put(catId.toString(),catelog2Vos);
             });
         });
-
         return map;
     }
 
