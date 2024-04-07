@@ -51,7 +51,7 @@ spring:
         - id: gulimall_product_host_route
           uri: lb://gulimall-product
           predicates:
-            - Host=www.lzgulimall.asia
+            - Host=www.lzgulimall.asia,item.lzgulimall.asia
 
         - id: gulimall_search_host_route
           uri: lb://gulimall-search

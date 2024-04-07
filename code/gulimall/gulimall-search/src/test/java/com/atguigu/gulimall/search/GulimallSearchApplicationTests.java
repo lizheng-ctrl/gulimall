@@ -45,6 +45,8 @@ class GulimallSearchApplicationTests {
 	}
 
 
+
+
 	/**测试存储数据*/
 	@Test
 	public void indexData() throws IOException {

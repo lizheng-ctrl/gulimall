@@ -10,6 +10,8 @@ spring:
       discovery:
         server-addr: 139.196.224.147:8848
         namespace: public
+        username: nacos
+        password: nacos
   application:
     name: gulimall-ware
 
