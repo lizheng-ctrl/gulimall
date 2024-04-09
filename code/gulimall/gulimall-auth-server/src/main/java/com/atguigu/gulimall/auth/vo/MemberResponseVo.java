@@ -1,29 +1,24 @@
-package com.atguigu.gulimall.member.entity;
+package com.atguigu.gulimall.auth.vo;
 
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Date;
 
-import lombok.Data;
-
 /**
- * 会员
- *
- * @author LZ
- * @email sunlightcs@gmail.com
- * @date 2022-07-14 22:19:34
- */
-@Data
-@TableName("ums_member")
-public class MemberEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
+ * @Description:
+ * @Created: with IntelliJ IDEA.
+ * @author: 夏沫止水
+ * @createTime: 2020-06-28 14:51
+ **/
 
-    /**
-     * id
-     */
-    @TableId
+@ToString
+@Data
+public class MemberResponseVo implements Serializable {
+
+    private static final long serialVersionUID = 5573669251256409786L;
+
     private Long id;
     /**
      * 会员等级id
@@ -108,8 +103,5 @@ public class MemberEntity implements Serializable {
      * 社交登录过期时间
      */
     private long expiresIn;
-
-
-
 
 }
