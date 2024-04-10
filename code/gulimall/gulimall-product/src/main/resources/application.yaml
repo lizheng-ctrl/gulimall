@@ -22,6 +22,8 @@ spring:
     host: 139.196.224.147
     port: 6379
     password: fes945@lizheng
+  session:
+    store-type: redis
 
 
 
